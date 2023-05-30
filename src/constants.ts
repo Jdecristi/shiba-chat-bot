@@ -1,12 +1,11 @@
 import type { Message } from './types/message';
 
-const API_KEY = process.env.API_KEY;
 const STREAM_URL = `https://api.openai.com/v1/chat/completions`;
 const STARTING_MESSAGES: Message[] = [
 	{
 		role: 'system',
 		content:
-			'You are going to help me understand for everything about Shiba Inu and the Shibareum blockchain. Explain things to me in a clear and consize manner, ideally in 1-2 sentances.'
+			'Your job is to help me understand for everything about Shiba Inu and the Shibareum blockchain. Explain things to me in a clear and consize manner, ideally in 1-3 sentances.'
 	},
 	{
 		role: 'assistant',
@@ -19,4 +18,4 @@ const STARTING_MESSAGES: Message[] = [
 	}
 ];
 
-export { API_KEY, STREAM_URL, STARTING_MESSAGES };
+export { STREAM_URL, STARTING_MESSAGES };

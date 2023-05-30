@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { Message } from '../types/message';
 
+	import { PUBLIC_API_KEY } from '$env/static/public';
 	import { createParser } from 'eventsource-parser';
-	import { API_KEY, STARTING_MESSAGES, STREAM_URL } from '../constants';
+	import { STARTING_MESSAGES, STREAM_URL } from '../constants';
 	import ChatMessages from './ChatMessages.svelte';
 	import ChatFooter from './ChatFooter.svelte';
 
@@ -37,7 +38,7 @@
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
-						Authorization: `Bearer ${API_KEY}`
+						Authorization: `Bearer ${PUBLIC_API_KEY}`
 					},
 					body: JSON.stringify(apiBody)
 				});
