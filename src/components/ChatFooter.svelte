@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let error: string;
+	export let loading: boolean;
 	export let inputMessage: string;
 	export let sendMessages: () => void;
 
@@ -15,6 +16,11 @@
 	{#if error}
 		<div class="error-container">
 			<span class="error">{error}</span>
+		</div>
+	{/if}
+	{#if loading}
+		<div class="loading-container">
+			<span class="loading">Shiba is typing...</span>
 		</div>
 	{/if}
 	<div class="input-container">
@@ -41,6 +47,14 @@
 
 	.error {
 		color: red;
+	}
+
+	.loading-container {
+		text-align: left;
+	}
+
+	.loading {
+		color: gray;
 	}
 
 	.input-container {

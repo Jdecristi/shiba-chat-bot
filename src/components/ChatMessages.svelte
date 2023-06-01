@@ -1,13 +1,13 @@
 <script lang="ts">
-	import type { Message } from '../types/message';
-
 	import ChatMessage from './ChatMessage.svelte';
+
+	import type { ChatMessage as Message } from '../types/message';
 
 	export let messages: Message[];
 </script>
 
 <div class="chat-messages-container">
 	{#each messages as message}
-		<ChatMessage role={message.role} content={message.content} />
+		<ChatMessage {message} />
 	{/each}
 </div>

@@ -1,11 +1,12 @@
 <script lang="ts">
-	export let role: 'assistant' | 'user' | 'system';
-	export let content: string;
+	import type { ChatMessage } from '../types/message';
+
+	export let message: ChatMessage;
 </script>
 
-{#if role !== 'system'}
-	<div class={`${role} chat-message`}>
-		{content}
+{#if message.type !== 'system'}
+	<div class={`${message.type} chat-message`}>
+		{message.data.content}
 	</div>
 {/if}
 
@@ -19,10 +20,10 @@
 		max-width: 80%;
 	}
 
-	.assistant {
+	.ai {
 		background-color: #eee;
 	}
-	.user {
+	.human {
 		background-color: #f59c04;
 		color: black;
 		margin-left: auto;

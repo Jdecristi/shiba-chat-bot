@@ -1,68 +1,41 @@
 <script lang="ts">
-	import type { Message } from '../types/message';
-
-	import { PUBLIC_API_KEY } from '$env/static/public';
-	import { createParser } from 'eventsource-parser';
-	import { STARTING_MESSAGES, STREAM_URL } from '../constants';
+	import { onMount } from 'svelte';
+	import { sendMessages } from '../helpers/chat';
 	import ChatMessages from './ChatMessages.svelte';
 	import ChatFooter from './ChatFooter.svelte';
 
-	let messages: Message[] = STARTING_MESSAGES;
+	import type { ChatMessage } from '../types/message';
+
+	let messages: ChatMessage[] = [];
 	let inputMessage = '';
-	let responseMessage = '';
 	let error = '';
+	let loading = true;
 
-	$: chatMessages = responseMessage
-		? ([...messages, { role: 'assistant', content: `${responseMessage}...` }] as Message[])
-		: messages;
+	onMount(async () => {
+		try {
+			messages = await sendMessages([{ type: 'system', data: { content: 'hello' } }]);
+		} catch (errorMessage) {
+			error = `${errorMessage}`;
+		} finally {
+			loading = false;
+		}
+	});
 
-	const sendMessages = async () => {
-		const message: Message = { role: 'user', content: inputMessage.trim() };
+	const handleClick = async () => {
+		const message = inputMessage.trim();
 
-		if (message.content !== '') {
-			messages = [...messages, message];
+		if (message !== '') {
+			messages = [...messages, { type: 'human', data: { content: message } }];
 			inputMessage = '';
 			error = '';
-
-			const apiBody = {
-				model: 'gpt-3.5-turbo',
-				messages,
-				stream: true,
-				n: 1,
-				max_tokens: 200,
-				temperature: 0.8
-			};
+			loading = true;
 
 			try {
-				const response = await fetch(STREAM_URL, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						Authorization: `Bearer ${PUBLIC_API_KEY}`
-					},
-					body: JSON.stringify(apiBody)
-				});
-
-				const parser = createParser((event) => {
-					if (event.type === 'event') {
-						if (event.data !== '[DONE]') {
-							responseMessage += JSON.parse(event.data).choices[0].delta?.content || '';
-						} else {
-							messages = [...messages, { role: 'assistant', content: responseMessage }];
-							responseMessage = '';
-						}
-					} else if (event.type === 'reconnect-interval') {
-						console.log('We should set reconnect interval to %d milliseconds', event.value);
-					}
-				});
-
-				for await (const value of response.body?.pipeThrough(
-					new TextDecoderStream()
-				) as unknown as AsyncIterableIterator<string>) {
-					parser.feed(value);
-				}
-			} catch (responseError) {
-				error = `${responseError}`;
+				messages = await sendMessages(messages);
+			} catch (errorMessage) {
+				error = `${errorMessage}`;
+			} finally {
+				loading = false;
 			}
 		}
 	};
@@ -70,8 +43,8 @@
 
 <div class="chat-container">
 	<h1>Shiba Chat Bot</h1>
-	<ChatMessages messages={chatMessages} />
-	<ChatFooter {error} bind:inputMessage {sendMessages} />
+	<ChatMessages {messages} />
+	<ChatFooter {loading} {error} bind:inputMessage sendMessages={handleClick} />
 </div>
 
 <style>
