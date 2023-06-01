@@ -6,7 +6,7 @@
 
 {#if message.type !== 'system'}
 	<div class={`${message.type} chat-message`}>
-		{message.data.content}
+		{message.content}
 	</div>
 {/if}
 

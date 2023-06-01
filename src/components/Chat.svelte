@@ -1,37 +1,31 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { sendMessages } from '../helpers/chat';
+	import { sendMessages, chatMessage } from '../helpers/chat';
 	import ChatMessages from './ChatMessages.svelte';
 	import ChatFooter from './ChatFooter.svelte';
 
 	import type { ChatMessage } from '../types/message';
 
-	let messages: ChatMessage[] = [];
+	let messages: ChatMessage[] = [
+		chatMessage(
+			"I'm Shiba, an AI language model programmed to help you understand SHIBA and the Shibareum blockchain. What Can I help you with today?",
+			'ai'
+		)
+	];
 	let inputMessage = '';
 	let error = '';
-	let loading = true;
-
-	onMount(async () => {
-		try {
-			messages = await sendMessages([{ type: 'system', data: { content: 'hello' } }]);
-		} catch (errorMessage) {
-			error = `${errorMessage}`;
-		} finally {
-			loading = false;
-		}
-	});
+	let loading = false;
 
 	const handleClick = async () => {
 		const message = inputMessage.trim();
 
 		if (message !== '') {
-			messages = [...messages, { type: 'human', data: { content: message } }];
+			messages = [...messages, chatMessage(message)];
 			inputMessage = '';
 			error = '';
 			loading = true;
 
 			try {
-				messages = await sendMessages(messages);
+				messages = [...messages, chatMessage(await sendMessages(message), 'ai')];
 			} catch (errorMessage) {
 				error = `${errorMessage}`;
 			} finally {
