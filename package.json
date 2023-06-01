@@ -2,10 +2,14 @@
 	"name": "shiba-chat-bot",
 	"version": "0.0.1",
 	"private": true,
+	"engines": {
+		"node": ">=18.0.0"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
+		"start": "node build",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
