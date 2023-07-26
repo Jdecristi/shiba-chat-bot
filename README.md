@@ -1,38 +1,14 @@
-# create-svelte
+# Shiba Chat Bot
+The SHIB Chat Bot is a project developed in May 2023 using SvelteKit, Open AI, and SerpAPI. This AI-powered chat bot is designed to provide users with up-to-date information about SHIB and Shibareum. By integrating Open AI and SerpAPI, the chat bot serves human-like responses with relevant and current information. Key features of the SHIB Chat Bot include:
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+* Real-time information: The chat bot delivers up-to-date insights about SHIB and Shibareum.
+* AI integration: Open AI and SerpAPI enable the chat bot to generate human-like responses to user queries.
+* Personalized experience: Users can interact with the chat bot to get customized and accurate information about SHIB and Shibareum.
+* Automation: The chat bot automates the retrieval of information, providing faster insights and enhancing the user experience.
+* Technology stack: The project is built using SvelteKit, Open AI, and SerpAPI, showcasing expertise in these technologies.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Screen Capture
+---
+<img width="1728" alt="Shiba Bot" src="https://github.com/Jdecristi/shiba-chat-bot/assets/89173284/7cc73a54-136e-4655-afef-037f22726af7">
+<img width="1722" alt="Shiba Bot" src="https://github.com/Jdecristi/shiba-chat-bot/assets/89173284/01a3c96c-d664-4208-b2c1-ae9bec9b7b1a">
+<img width="1719" alt="Shiba Bot" src="https://github.com/Jdecristi/shiba-chat-bot/assets/89173284/442cbb89-ce65-4405-bc1f-345f822d35c9">
